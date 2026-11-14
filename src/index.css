@@ -1,0 +1,240 @@
+@import 'leaflet/dist/leaflet.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --map-glow: rgba(34, 211, 238, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #05080e;
+  background-image:
+    radial-gradient(ellipse 75% 50% at 18% -12%, rgba(34, 211, 238, 0.07), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 100% 0%, rgba(96, 165, 250, 0.055), transparent 58%),
+    radial-gradient(ellipse 60% 40% at 50% 120%, rgba(45, 212, 191, 0.04), transparent 60%);
+  background-attachment: fixed;
+  @apply font-sans text-content antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(34, 211, 238, 0.24);
+  color: #f8fafc;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.45) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.38);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.55);
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-line bg-surface/65 shadow-panel backdrop-blur-xl;
+  }
+
+  .panel-header {
+    @apply flex items-start justify-between gap-4 border-b border-line/70 px-5 py-4;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold tracking-tight text-content;
+  }
+
+  .panel-subtitle {
+    @apply mt-0.5 text-xs leading-relaxed text-content-muted;
+  }
+
+  .eyebrow {
+    @apply text-[10px] font-semibold uppercase tracking-[0.2em] text-content-muted;
+  }
+
+  .stat-label {
+    @apply text-[10px] font-medium uppercase tracking-[0.16em] text-content-muted;
+  }
+
+  .stat-value {
+    @apply font-mono text-2xl font-semibold tracking-tight text-content;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-2xs font-medium text-content-secondary;
+  }
+
+  .table-head {
+    @apply border-b border-line/70 text-left text-[10px] font-semibold uppercase tracking-[0.16em] text-content-muted;
+  }
+
+  .table-row {
+    @apply border-b border-line/50 transition-colors last:border-0 hover:bg-white/[0.025];
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-cyan/40;
+  }
+
+  .map-vignette {
+    background:
+      radial-gradient(ellipse at center, transparent 45%, rgba(5, 8, 14, 0.42) 100%),
+      linear-gradient(to bottom, rgba(5, 8, 14, 0.24), transparent 18%, transparent 82%, rgba(5, 8, 14, 0.36));
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.maplibregl-map {
+  font-family: inherit;
+  background: transparent;
+}
+
+.maplibregl-canvas:focus {
+  outline: none;
+}
+
+.maplibregl-ctrl-attrib {
+  display: none;
+}
+
+.maplibregl-popup {
+  max-width: 260px !important;
+}
+
+.maplibregl-popup-content {
+  @apply rounded-xl border border-line-strong bg-surface-overlay/95 px-3 py-2.5 text-xs text-content shadow-float backdrop-blur-xl;
+}
+
+.maplibregl-popup-tip {
+  border-top-color: rgba(17, 27, 44, 0.98) !important;
+  border-bottom-color: rgba(17, 27, 44, 0.98) !important;
+}
+
+.maplibregl-popup-close-button {
+  @apply right-1 top-1 text-content-muted hover:bg-white/5 hover:text-content;
+}
+
+/* OpenStreetMap Dark filter without needing any API key */
+.osm-dark-tiles .leaflet-tile-pane {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+}
+
+/* Custom Leaflet Dark Weather Badge on Map */
+.custom-weather-marker {
+  background: transparent;
+  border: none;
+}
+
+.weather-map-badge {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  background: rgba(12, 22, 38, 0.92);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 9999px;
+  color: #f1f5f9;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.weather-map-badge:hover {
+  transform: scale(1.08);
+  border-color: #38bdf8;
+}
+
+/* Rain Red Fence Alert Animation */
+@keyframes rainFencePulse {
+  0% {
+    stroke-opacity: 0.9;
+    stroke-width: 4px;
+    fill-opacity: 0.35;
+  }
+  50% {
+    stroke-opacity: 0.3;
+    stroke-width: 8px;
+    fill-opacity: 0.15;
+  }
+  100% {
+    stroke-opacity: 0.9;
+    stroke-width: 4px;
+    fill-opacity: 0.35;
+  }
+}
+
+.rain-fence-pulse {
+  animation: rainFencePulse 1.8s infinite ease-in-out;
+  stroke: #ef4444 !important;
+  stroke-dasharray: 6, 6;
+}
+
+/* Pulsing radar dot for active rain centers */
+@keyframes pingDot {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.rain-radar-ping {
+  animation: pingDot 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(12, 22, 38, 0.96) !important;
+  border: 1px solid #1e2f47 !important;
+  border-radius: 14px !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(12, 22, 38, 0.96) !important;
+}

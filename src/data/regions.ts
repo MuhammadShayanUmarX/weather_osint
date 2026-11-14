@@ -1,0 +1,118 @@
+import type { Region } from '@/types';
+
+export const REGIONS: Region[] = [
+  {
+    id: 'south-asia',
+    name: 'South Asia',
+    shortName: 'S. Asia',
+    center: [79.5, 21.5],
+    zoom: 4,
+    bounds: [60, 4, 100, 38],
+    locations: [
+      { name: 'New Delhi', coordinates: [77.209, 28.6139] },
+      { name: 'Mumbai', coordinates: [72.8777, 19.076] },
+      { name: 'Kolkata', coordinates: [88.3639, 22.5726] },
+      { name: 'Dhaka', coordinates: [90.4125, 23.8103] },
+      { name: 'Kathmandu', coordinates: [85.324, 27.7172] },
+      { name: 'Colombo', coordinates: [79.8612, 6.9271] },
+      { name: 'Karachi', coordinates: [67.0011, 24.8607] },
+      { name: 'Chennai', coordinates: [80.2707, 13.0827] },
+    ],
+    rivers: ['Ganges', 'Brahmaputra', 'Godavari', 'Indus', 'Mahanadi'],
+  },
+  {
+    id: 'east-africa',
+    name: 'East Africa',
+    shortName: 'E. Africa',
+    center: [39, 1.5],
+    zoom: 4,
+    bounds: [28, -13, 53, 16],
+    locations: [
+      { name: 'Nairobi', coordinates: [36.8219, -1.2921] },
+      { name: 'Addis Ababa', coordinates: [38.7578, 9.0192] },
+      { name: 'Dar es Salaam', coordinates: [39.2083, -6.7924] },
+      { name: 'Kampala', coordinates: [32.5825, 0.3476] },
+      { name: 'Kigali', coordinates: [30.0619, -1.9441] },
+      { name: 'Mogadishu', coordinates: [45.3182, 2.0469] },
+      { name: 'Dodoma', coordinates: [35.7395, -6.163] },
+    ],
+    rivers: ['Tana', 'Awash', 'Rufiji', 'Nile', 'Juba'],
+  },
+  {
+    id: 'southeast-asia',
+    name: 'Southeast Asia',
+    shortName: 'SE Asia',
+    center: [112, 7],
+    zoom: 3.7,
+    bounds: [92, -12, 132, 25],
+    locations: [
+      { name: 'Jakarta', coordinates: [106.8456, -6.2088] },
+      { name: 'Bangkok', coordinates: [100.5018, 13.7563] },
+      { name: 'Manila', coordinates: [120.9842, 14.5995] },
+      { name: 'Hanoi', coordinates: [105.8342, 21.0278] },
+      { name: 'Kuala Lumpur', coordinates: [101.6869, 3.139] },
+      { name: 'Singapore', coordinates: [103.8198, 1.3521] },
+      { name: 'Ho Chi Minh City', coordinates: [106.6297, 10.8231] },
+    ],
+    rivers: ['Mekong', 'Chao Phraya', 'Irrawaddy', 'Red River', 'Citarum'],
+  },
+  {
+    id: 'western-europe',
+    name: 'Western Europe',
+    shortName: 'W. Europe',
+    center: [5, 47],
+    zoom: 3.9,
+    bounds: [-12, 35, 24, 60],
+    locations: [
+      { name: 'London', coordinates: [-0.1276, 51.5072] },
+      { name: 'Paris', coordinates: [2.3522, 48.8566] },
+      { name: 'Berlin', coordinates: [13.405, 52.52] },
+      { name: 'Madrid', coordinates: [-3.7038, 40.4168] },
+      { name: 'Rome', coordinates: [12.4964, 41.9028] },
+      { name: 'Amsterdam', coordinates: [4.9041, 52.3676] },
+      { name: 'Lisbon', coordinates: [-9.1393, 38.7223] },
+    ],
+    rivers: ['Rhine', 'Danube', 'Elbe', 'Rhône', 'Po'],
+  },
+  {
+    id: 'south-america',
+    name: 'South America',
+    shortName: 'S. America',
+    center: [-58, -16],
+    zoom: 3.2,
+    bounds: [-83, -56, -33, 13],
+    locations: [
+      { name: 'São Paulo', coordinates: [-46.6333, -23.5505] },
+      { name: 'Buenos Aires', coordinates: [-58.3816, -34.6037] },
+      { name: 'Lima', coordinates: [-77.0428, -12.0464] },
+      { name: 'Bogotá', coordinates: [-74.0721, 4.711] },
+      { name: 'Santiago', coordinates: [-70.6693, -33.4489] },
+      { name: 'Rio de Janeiro', coordinates: [-43.1729, -22.9068] },
+    ],
+    rivers: ['Amazon', 'Paraná', 'Orinoco', 'Magdalena', 'São Francisco'],
+  },
+  {
+    id: 'north-america',
+    name: 'North America',
+    shortName: 'N. America',
+    center: [-100, 42],
+    zoom: 3,
+    bounds: [-170, 14, -50, 73],
+    locations: [
+      { name: 'New York', coordinates: [-74.006, 40.7128] },
+      { name: 'Los Angeles', coordinates: [-118.2437, 34.0522] },
+      { name: 'Chicago', coordinates: [-87.6298, 41.8781] },
+      { name: 'Houston', coordinates: [-95.3698, 29.7604] },
+      { name: 'Denver', coordinates: [-104.9903, 39.7392] },
+      { name: 'Vancouver', coordinates: [-123.1207, 49.2827] },
+      { name: 'Mexico City', coordinates: [-99.1332, 19.4326] },
+    ],
+    rivers: ['Mississippi', 'Colorado', 'Columbia', 'Rio Grande', 'Ohio'],
+  },
+];
+
+export const DEFAULT_REGION_ID = 'south-asia';
+
+export function getRegion(regionId: string): Region {
+  return REGIONS.find((region) => region.id === regionId) ?? REGIONS[0]!;
+}
